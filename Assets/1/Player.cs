@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     private Collision coll;
     public Rigidbody2D rb;
+    private Animator anim;
     
     [Header("Stats")]
     public float speed = 10;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     public bool canMove;
     public bool wallSlide;
     public bool isDashing;
+    private bool isWalking;
     private bool groundTouch;
     private bool hasDashed;
     public bool isFacingright = true;
@@ -35,6 +37,7 @@ public class Player : MonoBehaviour
     {
         coll = GetComponent<Collision>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
     
     void Update()
@@ -144,6 +147,17 @@ public class Player : MonoBehaviour
         {
            Flip();
         }
+
+        if (rb.velocity.x != 0)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
+        
+        UpdateAnimations();
         
     }
 
@@ -228,6 +242,14 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.velocity += dir * jumpForce;
+    }
+
+    private void UpdateAnimations()
+    {
+        anim.SetBool("isWalking", isWalking);
+        anim.SetBool("isGrounded", groundTouch);
+        anim.SetFloat("yVelocity", rb.velocity.y);
+        anim.SetBool("isDashing", isDashing);
     }
     
 }
