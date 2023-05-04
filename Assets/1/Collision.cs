@@ -50,7 +50,6 @@ public class Collision : MonoBehaviour
 }
 
 /*
-
 public class Collision : MonoBehaviour
 {
  
@@ -104,6 +103,5 @@ public class Collision : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
     }
 }
-
-
 */
+
